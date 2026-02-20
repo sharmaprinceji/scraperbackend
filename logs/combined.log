@@ -508,3 +508,58 @@
 2026-02-20 22:08:16 [[32minfo[39m]: Server running on port 5000
 2026-02-20 22:08:23 [[32minfo[39m]: MongoDB connected successfully
 2026-02-20 22:08:23 [[32minfo[39m]: Server running on port 5000
+2026-02-20 22:38:29 [[32minfo[39m]: MongoDB connected successfully
+2026-02-20 22:38:29 [[32minfo[39m]: Server running on port 5000
+2026-02-20 22:38:36 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:08:36 +0000] "GET /api/auth/me HTTP/1.1" 401 47 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 22:38:36 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:08:36 +0000] "GET /api/events HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 22:41:55 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:11:55 +0000] "GET /api/auth/me HTTP/1.1" 401 47 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 22:42:01 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:12:01 +0000] "GET /api/events HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 22:56:57 [[32minfo[39m]: MongoDB connected successfully
+2026-02-20 22:56:58 [[32minfo[39m]: Server running on port 5000
+2026-02-20 22:57:34 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:27:34 +0000] "GET /api/events HTTP/1.1" 200 86 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 22:57:47 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:27:47 +0000] "GET /api/events/scrape-eventbrite HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 22:57:56 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:27:56 +0000] "GET /api/events HTTP/1.1" 200 7254 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 22:58:11 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:28:11 +0000] "GET /api/auth/me HTTP/1.1" 401 47 "http://localhost:5173/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36"
+2026-02-20 22:58:11 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:28:11 +0000] "GET /api/events HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36"
+2026-02-20 23:03:55 [[32minfo[39m]: MongoDB connected successfully
+2026-02-20 23:03:55 [[32minfo[39m]: Server running on port 5000
+2026-02-20 23:04:34 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:34:34 +0000] "GET /api/events/scrape-eventbrite HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:06:41 [[32minfo[39m]: MongoDB connected successfully
+2026-02-20 23:06:41 [[32minfo[39m]: Server running on port 5000
+2026-02-20 23:06:54 [[32minfo[39m]: MongoDB connected successfully
+2026-02-20 23:06:54 [[32minfo[39m]: Server running on port 5000
+2026-02-20 23:07:23 [[32minfo[39m]: MongoDB connected successfully
+2026-02-20 23:07:23 [[32minfo[39m]: Server running on port 5000
+2026-02-20 23:07:29 [[32minfo[39m]: MongoDB connected successfully
+2026-02-20 23:07:29 [[32minfo[39m]: Server running on port 5000
+2026-02-20 23:07:42 [[32minfo[39m]: MongoDB connected successfully
+2026-02-20 23:07:42 [[32minfo[39m]: Server running on port 5000
+2026-02-20 23:08:23 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:38:23 +0000] "GET /api/events/scrape-eventbrite HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:08:47 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:38:47 +0000] "GET /api/auth/me HTTP/1.1" 401 47 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:08:47 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:38:47 +0000] "GET /api/events HTTP/1.1" 200 6788 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:15:37 [[32minfo[39m]: MongoDB connected successfully
+2026-02-20 23:15:37 [[32minfo[39m]: Server running on port 5000
+2026-02-20 23:15:42 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:45:42 +0000] "GET /api/auth/me HTTP/1.1" 401 47 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:15:42 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:45:42 +0000] "GET /api/events HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:15:51 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:45:51 +0000] "GET /api/auth/me HTTP/1.1" 401 47 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:15:51 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:45:51 +0000] "GET /api/events HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:15:57 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:45:57 +0000] "GET /api/auth/me HTTP/1.1" 401 47 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:16:05 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:46:05 +0000] "GET /api/auth/google HTTP/1.1" 302 0 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:16:09 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:46:09 +0000] "GET /api/auth/google/callback?code=4%2F0AfrIepB75emKImbhcB2Fl96kDd3AbY-BQ6tDVVKEpbjhe7POsm3F4ftRPkpa_NwFU0LLTA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none HTTP/1.1" 302 60 "https://accounts.google.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:16:09 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:46:09 +0000] "GET /api/auth/me HTTP/1.1" 200 360 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:16:09 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:46:09 +0000] "GET /api/events?keyword=&status=&city=&startDate=&endDate=&page=1&limit=10 HTTP/1.1" 200 6788 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:16:20 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:46:20 +0000] "GET /api/auth/logout HTTP/1.1" 302 43 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:16:20 [[32minfo[39m]: ::1 - - [20/Feb/2026:17:46:20 +0000] "GET /api/auth/me HTTP/1.1" 401 47 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-20 23:33:09 [[32minfo[39m]: ::1 - - [20/Feb/2026:18:03:09 +0000] "GET /api/auth/me HTTP/1.1" 401 47 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-21 01:58:29 [[32minfo[39m]: ::1 - - [20/Feb/2026:20:28:29 +0000] "GET /api/auth/me HTTP/1.1" 401 47 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-21 01:58:32 [[32minfo[39m]: ::1 - - [20/Feb/2026:20:28:32 +0000] "GET /api/events?page=1&limit=9 HTTP/1.1" 200 6076 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-21 01:58:42 [[32minfo[39m]: ::1 - - [20/Feb/2026:20:28:42 +0000] "GET /api/auth/google HTTP/1.1" 302 0 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-21 01:58:46 [[32minfo[39m]: ::1 - - [20/Feb/2026:20:28:46 +0000] "GET /api/auth/google/callback?code=4%2F0AfrIepD_YVkO8w8_op7n9hZMvoz8MEstCaDSHACD-Ck0eObGjgp3mhR1ojg9sD2Bgv0f-g&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none HTTP/1.1" 302 60 "https://accounts.google.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-21 01:58:47 [[32minfo[39m]: ::1 - - [20/Feb/2026:20:28:47 +0000] "GET /api/auth/me HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-21 01:58:47 [[32minfo[39m]: ::1 - - [20/Feb/2026:20:28:47 +0000] "GET /api/events?keyword=&status=&city=&startDate=&endDate=&page=1&limit=10 HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-21 01:58:51 [[32minfo[39m]: ::1 - - [20/Feb/2026:20:28:51 +0000] "GET /api/events?keyword=&status=&city=&startDate=&endDate=&page=2&limit=10 HTTP/1.1" 200 6622 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-21 01:59:07 [[32minfo[39m]: ::1 - - [20/Feb/2026:20:29:07 +0000] "GET /api/events?keyword=&status=&city=b&startDate=&endDate=&page=1&limit=10 HTTP/1.1" 200 86 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-21 01:59:09 [[32minfo[39m]: ::1 - - [20/Feb/2026:20:29:09 +0000] "GET /api/events?keyword=&status=&city=&startDate=&endDate=&page=1&limit=10 HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-21 02:22:16 [[32minfo[39m]: ::1 - - [20/Feb/2026:20:52:16 +0000] "GET /api/auth/me HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-21 02:22:16 [[32minfo[39m]: ::1 - - [20/Feb/2026:20:52:16 +0000] "GET /api/events?keyword=&status=&city=&startDate=&endDate=&page=1&limit=10 HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-02-21 02:58:51 [[32minfo[39m]: ::1 - - [20/Feb/2026:21:28:51 +0000] "GET /api/events?keyword=&status=&city=&startDate=&endDate=&page=2&limit=10 HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"

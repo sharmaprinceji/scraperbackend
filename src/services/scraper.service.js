@@ -1,73 +1,230 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
+// import axios from "axios";
+// import * as cheerio from "cheerio";
+// import Event from "../models/Events.js";
+
+// class ScraperService {
+
+//   async scrapeEventbriteSydney() {
+
+//     try {
+
+//       const url =
+//         "https://www.eventbrite.com.au/d/australia--sydney/events/";
+
+//       const response = await axios.get(url, {
+//         headers: {
+//           "User-Agent":
+//             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
+//         }
+//       });
+
+//       const html = response.data;
+
+//       const $ = cheerio.load(html);
+
+//       const events = [];
+
+//       // Select event cards reliably
+//       $("a[href*='/e/']").each((i, el) => {
+
+//         try {
+
+//           const element = $(el);
+
+//           const title =
+//             element.find("h3").first().text().trim();
+
+//           let link =
+//             element.attr("href");
+
+//           // FIX image extraction (supports lazy loading)
+//           let image =
+//             element.find("img").attr("src") ||
+//             element.find("img").attr("data-src") ||
+//             element.find("img").attr("data-original") ||
+//             element.find("img").attr("srcset");
+
+//           // Clean srcset if exists
+//           if (image && image.includes(",")) {
+//             image = image.split(",")[0].split(" ")[0];
+//           }
+
+//           // Fix relative URLs
+//           if (link && !link.startsWith("http")) {
+//             link = `https://www.eventbrite.com.au${link}`;
+//           }
+
+//           // Validation
+//           if (!title || !link) return;
+
+//           const eventData = {
+
+//             title,
+
+//             description: title,
+
+//             dateTime: new Date(),
+
+//             venueName: "Sydney",
+
+//             venueAddress: "Sydney",
+
+//             city: "Sydney",
+
+//             category: "Event",
+
+//             imageUrl:
+//               image ||
+//               "https://via.placeholder.com/400x200?text=Event",
+
+//             sourceWebsite: "Eventbrite",
+
+//             originalEventUrl: link,
+
+//             lastScrapedAt: new Date()
+
+//           };
+
+//           events.push(eventData);
+
+//         } catch (err) {
+
+//           console.error("Error parsing event:", err.message);
+
+//         }
+
+//       });
+
+//       console.log(`Events found: ${events.length}`);
+
+//       // Save to MongoDB
+//       let savedCount = 0;
+
+//       for (const event of events) {
+
+//         await Event.updateOne(
+
+//           { originalEventUrl: event.originalEventUrl },
+
+//           { $set: event },
+
+//           { upsert: true }
+
+//         );
+
+//         savedCount++;
+
+//       }
+
+//       console.log(`Events saved: ${savedCount}`);
+
+//       return {
+//         success: true,
+//         count: savedCount
+//       };
+
+//     } catch (error) {
+
+//       console.error("Scraper error:", error.message);
+
+//       return {
+//         success: false,
+//         error: error.message
+//       };
+
+//     }
+
+//   }
+
+// }
+
+// export default new ScraperService();
+
+import puppeteer from "puppeteer";
 import Event from "../models/Events.js";
 
 class ScraperService {
 
   async scrapeEventbriteSydney() {
 
+    let browser;
+
     try {
 
-      const url =
-        "https://www.eventbrite.com.au/d/australia--sydney/events/";
-
-      const response = await axios.get(url, {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-        }
+      browser = await puppeteer.launch({
+        headless: true
       });
 
-      const html = response.data;
+      const page = await browser.newPage();
 
-      const $ = cheerio.load(html);
+      await page.goto(
+        "https://www.eventbrite.com.au/d/australia--sydney/events/",
+        {
+          waitUntil: "networkidle2",
+          timeout: 0
+        }
+      );
 
-      const events = [];
+      // Wait for events to load
+      await page.waitForSelector("a[href*='/e/']");
 
-      $("a[href*='/e/']").each((i, el) => {
+      const events = await page.evaluate(() => {
 
-        const title =
-          $(el).find("h3").text().trim();
+        const eventElements =
+          document.querySelectorAll("a[href*='/e/']");
 
-        const link =
-          $(el).attr("href");
+        const results = [];
 
-        const image =
-          $(el).find("img").attr("src");
+        eventElements.forEach(el => {
 
-        if (!title || !link) return;
+          const title =
+            el.querySelector("h3")?.innerText?.trim();
 
-        events.push({
+          const link =
+            el.href;
 
-          title,
+          const image =
+            el.querySelector("img")?.src;
 
-          description: title,
+          if (title && link) {
 
-          dateTime: new Date(),
+            results.push({
 
-          venueName: "Sydney",
+              title,
 
-          venueAddress: "Sydney",
+              description: title,
 
-          city: "Sydney",
+              dateTime: new Date().toISOString(), // send as string
 
-          category: "Event",
+              venueName: "Sydney",
 
-          imageUrl: image || "",
+              venueAddress: "Sydney",
 
-          sourceWebsite: "Eventbrite",
+              city: "Sydney",
 
-          originalEventUrl: link.startsWith("http")
-            ? link
-            : `https://www.eventbrite.com.au${link}`,
+              category: "Event",
 
-          lastScrapedAt: new Date()
+              imageUrl: image || "",
+
+              sourceWebsite: "Eventbrite",
+
+              originalEventUrl: link
+
+              // REMOVE lastScrapedAt here
+
+            });
+
+          }
 
         });
+
+        return results;
 
       });
 
       console.log("Events found:", events.length);
+
+      let saved = 0;
 
       for (const event of events) {
 
@@ -75,7 +232,16 @@ class ScraperService {
 
           { originalEventUrl: event.originalEventUrl },
 
-          { $set: event },
+          {
+            $set: {
+              ...event,
+
+              // SET DATE HERE (Node.js context)
+              lastScrapedAt: new Date(),
+
+              dateTime: new Date(event.dateTime)
+            }
+          },
 
           { upsert: true }
 
@@ -83,11 +249,25 @@ class ScraperService {
 
       }
 
-      console.log("Events saved to database");
+      // console.log("Events saved:", saved);
+
+      await browser.close();
+
+      return {
+        success: true,
+        saved
+      };
 
     } catch (error) {
 
-      console.error("Scraper error:", error.message);
+      if (browser) await browser.close();
+
+      console.error(error);
+
+      return {
+        success: false,
+        error: error.message
+      };
 
     }
 
