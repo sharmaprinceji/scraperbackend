@@ -4,11 +4,7 @@ import validateRequired from "../middlewares/validate.middleware.js";
 
 const router = express.Router();
 
-// POST email opt-in
 router.post("/", emailOptinController.createOptin);
-
-
-
 router.post(
     "/",
     validateRequired(["email", "consent", "eventId"]),

@@ -7,14 +7,13 @@ class EmailService {
 
     const { email, consent, eventId } = data;
 
-    // validate event exists
     const event = await Event.findById(eventId);
 
     if (!event) {
       throw new Error("Event not found");
     }
 
-    // save opt-in
+
     const optin = await EmailOptin.create({
       email,
       consent,

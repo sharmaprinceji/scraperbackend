@@ -19,17 +19,14 @@ class EventService {
 
     const filter = {};
 
-    // City filter
     if (city) {
       filter.city = city;
     }
 
-    // Status filter
     if (status) {
       filter.status = status;
     }
 
-    // Keyword search
     if (keyword) {
 
       filter.$or = [
@@ -40,7 +37,6 @@ class EventService {
 
     }
 
-    // Date range filter
     if (startDate || endDate) {
 
       filter.dateTime = {};
@@ -54,8 +50,7 @@ class EventService {
       }
 
     }
-
-    // Sorting
+    
     const sort = {
       [sortBy]: sortOrder === "desc" ? -1 : 1
     };

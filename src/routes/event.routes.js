@@ -7,9 +7,6 @@ import requireAdmin from "../middlewares/role.middleware.js";
 const router = express.Router();
 
 
-// PUBLIC ROUTES
-
-// 1. Scrape route FIRST
 router.get("/scrape-eventbrite", async (req, res) => {
 
   await scraperService.scrapeEventbriteSydney();
@@ -22,11 +19,7 @@ router.get("/scrape-eventbrite", async (req, res) => {
 });
 
 
-// 2. Get all events
 router.get("/", eventController.getEvents);
-
-
-// 3. Import event (admin)
 router.post(
   "/import/:id",
   requireAuth,
@@ -34,8 +27,6 @@ router.post(
   eventController.importEvent
 );
 
-
-// 4. Get single event (ALWAYS LAST)
 router.get("/:id", eventController.getEventById);
 
 
