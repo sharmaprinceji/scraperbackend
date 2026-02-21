@@ -1,149 +1,40 @@
-// import axios from "axios";
-// import * as cheerio from "cheerio";
-// import Event from "../models/Events.js";
-
-// class ScraperService {
-
-//   async scrapeEventbriteSydney() {
-
-//     try {
-
-//       const url =
-//         "https://www.eventbrite.com.au/d/australia--sydney/events/";
-
-//       const response = await axios.get(url, {
-//         headers: {
-//           "User-Agent":
-//             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
-//         }
-//       });
-
-//       const html = response.data;
-
-//       const $ = cheerio.load(html);
-
-//       const events = [];
-
-//       // Select event cards reliably
-//       $("a[href*='/e/']").each((i, el) => {
-
-//         try {
-
-//           const element = $(el);
-
-//           const title =
-//             element.find("h3").first().text().trim();
-
-//           let link =
-//             element.attr("href");
-
-//           // FIX image extraction (supports lazy loading)
-//           let image =
-//             element.find("img").attr("src") ||
-//             element.find("img").attr("data-src") ||
-//             element.find("img").attr("data-original") ||
-//             element.find("img").attr("srcset");
-
-//           // Clean srcset if exists
-//           if (image && image.includes(",")) {
-//             image = image.split(",")[0].split(" ")[0];
-//           }
-
-//           // Fix relative URLs
-//           if (link && !link.startsWith("http")) {
-//             link = `https://www.eventbrite.com.au${link}`;
-//           }
-
-//           // Validation
-//           if (!title || !link) return;
-
-//           const eventData = {
-
-//             title,
-
-//             description: title,
-
-//             dateTime: new Date(),
-
-//             venueName: "Sydney",
-
-//             venueAddress: "Sydney",
-
-//             city: "Sydney",
-
-//             category: "Event",
-
-//             imageUrl:
-//               image ||
-//               "https://via.placeholder.com/400x200?text=Event",
-
-//             sourceWebsite: "Eventbrite",
-
-//             originalEventUrl: link,
-
-//             lastScrapedAt: new Date()
-
-//           };
-
-//           events.push(eventData);
-
-//         } catch (err) {
-
-//           console.error("Error parsing event:", err.message);
-
-//         }
-
-//       });
-
-//       console.log(`Events found: ${events.length}`);
-
-//       // Save to MongoDB
-//       let savedCount = 0;
-
-//       for (const event of events) {
-
-//         await Event.updateOne(
-
-//           { originalEventUrl: event.originalEventUrl },
-
-//           { $set: event },
-
-//           { upsert: true }
-
-//         );
-
-//         savedCount++;
-
-//       }
-
-//       console.log(`Events saved: ${savedCount}`);
-
-//       return {
-//         success: true,
-//         count: savedCount
-//       };
-
-//     } catch (error) {
-
-//       console.error("Scraper error:", error.message);
-
-//       return {
-//         success: false,
-//         error: error.message
-//       };
-
-//     }
-
-//   }
-
-// }
-
-// export default new ScraperService();
 
 import puppeteer from "puppeteer";
 import Event from "../models/Events.js";
 
 class ScraperService {
+
+  async autoScroll(page) {
+
+    await page.evaluate(async () => {
+
+      await new Promise(resolve => {
+
+        let totalHeight = 0;
+        const distance = 500;
+
+        const timer = setInterval(() => {
+
+          window.scrollBy(0, distance);
+
+          totalHeight += distance;
+
+          if (totalHeight >= document.body.scrollHeight) {
+
+            clearInterval(timer);
+            resolve();
+
+          }
+
+        }, 300);
+
+      });
+
+    });
+
+  }
+
+
 
   async scrapeEventbriteSydney() {
 
@@ -152,7 +43,8 @@ class ScraperService {
     try {
 
       browser = await puppeteer.launch({
-        headless: true
+        headless: true,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"]
       });
 
       const page = await browser.newPage();
@@ -165,17 +57,21 @@ class ScraperService {
         }
       );
 
-      // Wait for events to load
       await page.waitForSelector("a[href*='/e/']");
 
-      const events = await page.evaluate(() => {
+      await this.autoScroll(page);
 
-        const eventElements =
+
+
+      // STEP 1: Extract event links only
+      const eventLinks = await page.evaluate(() => {
+
+        const elements =
           document.querySelectorAll("a[href*='/e/']");
 
         const results = [];
 
-        eventElements.forEach(el => {
+        elements.forEach(el => {
 
           const title =
             el.querySelector("h3")?.innerText?.trim();
@@ -183,35 +79,11 @@ class ScraperService {
           const link =
             el.href;
 
-          const image =
-            el.querySelector("img")?.src;
-
           if (title && link) {
 
             results.push({
-
               title,
-
-              description: title,
-
-              dateTime: new Date().toISOString(), // send as string
-
-              venueName: "Sydney",
-
-              venueAddress: "Sydney",
-
-              city: "Sydney",
-
-              category: "Event",
-
-              imageUrl: image || "",
-
-              sourceWebsite: "Eventbrite",
-
-              originalEventUrl: link
-
-              // REMOVE lastScrapedAt here
-
+              link
             });
 
           }
@@ -222,8 +94,99 @@ class ScraperService {
 
       });
 
-      console.log("Events found:", events.length);
 
+
+      // console.log("Event links found:", eventLinks.length);
+
+
+
+      // STEP 2: Visit each event page and extract real image
+      const events = [];
+
+      for (const item of eventLinks.slice(0, 20)) {
+
+        try {
+
+          const eventPage = await browser.newPage();
+
+          await eventPage.goto(item.link, {
+            waitUntil: "networkidle2",
+            timeout: 0
+          });
+
+
+
+          const eventDetails = await eventPage.evaluate(() => {
+
+            // REAL IMAGE extraction from event detail page
+            const image =
+              document.querySelector(
+                "img[src*='evbuc']"
+              )?.src || "";
+
+            // Venue extraction
+            const venue =
+              document.querySelector(
+                "[data-testid='venue-name']"
+              )?.innerText || "Sydney";
+
+            // Date extraction
+            const dateText =
+              document.querySelector("time")?.innerText;
+
+            return {
+              image,
+              venue,
+              dateText
+            };
+
+          });
+
+
+
+          events.push({
+
+            title: item.title,
+
+            description: item.title,
+
+            dateTime: new Date(),
+
+            venueName: eventDetails.venue,
+
+            venueAddress: eventDetails.venue,
+
+            city: "Sydney",
+
+            category: "Event",
+
+            imageUrl: eventDetails.image,
+
+            sourceWebsite: "Eventbrite",
+
+            originalEventUrl: item.link
+
+          });
+
+
+
+          await eventPage.close();
+
+        } catch (err) {
+
+          console.log("Error scraping event:", err.message);
+
+        }
+
+      }
+
+
+
+      console.log("Events with images:", events.length);
+
+
+
+      // STEP 3: Save to MongoDB
       let saved = 0;
 
       for (const event of events) {
@@ -235,11 +198,7 @@ class ScraperService {
           {
             $set: {
               ...event,
-
-              // SET DATE HERE (Node.js context)
-              lastScrapedAt: new Date(),
-
-              dateTime: new Date(event.dateTime)
+              lastScrapedAt: new Date()
             }
           },
 
@@ -247,22 +206,32 @@ class ScraperService {
 
         );
 
+        saved++;
+
       }
 
-      // console.log("Events saved:", saved);
+
+
+      console.log("Events saved:", saved);
+
+
 
       await browser.close();
+
+
 
       return {
         success: true,
         saved
       };
 
+
+
     } catch (error) {
 
       if (browser) await browser.close();
 
-      console.error(error);
+      console.error("Scraper error:", error);
 
       return {
         success: false,
